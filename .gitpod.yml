@@ -7,7 +7,7 @@ tasks:
 
       flutter config --enable-web
       flutter config --android-sdk /home/gitpod/androidsdk
-      echo y | flutter doctor --android-licenses
+      yes | flutter doctor --android-licenses
 
       flutter doctor
 
