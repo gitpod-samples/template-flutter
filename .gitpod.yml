@@ -3,17 +3,11 @@ image:
 tasks:
   - before: sudo mount -t tmpfs shm -osize=4096m /dev/shm
   - init: |
-      flutter channel beta
-      flutter upgrade
-
       flutter config --enable-web
       flutter config --android-sdk /home/gitpod/androidsdk
       yes | flutter doctor --android-licenses
-
       flutter doctor
-
       flutter pub get
-
       flutter build -v bundle
       flutter build -v web
       flutter build -v appbundle
