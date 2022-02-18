@@ -18,7 +18,7 @@ tasks:
       flutter build -v web
       flutter build -v appbundle
       flutter build -v apk
-      
+
   - command: |
       # Gitpod is not able to run emulators within a worspace at this stage as
       # Google Kubernetes Engine does not support Nested Virtualization.
@@ -63,13 +63,14 @@ tasks:
 ports:
   - port: 5900
     onOpen: ignore
-    # vnc
+# vnc
   - port: 6080
     onOpen: open-preview
-    # flutter
+# flutter
   - port: 8080
     onOpen: open-preview
 
 vscode:
   extensions:
     - dart-code.flutter
+    - dart-code.dart-code
