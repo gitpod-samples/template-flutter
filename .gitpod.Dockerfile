@@ -1,4 +1,4 @@
-FROM gitpod/workspace-full-vnc
+FROM gitpod/workspace-full-vnc:latest
 SHELL ["/bin/bash", "-c"]
 
 ENV ANDROID_HOME=/home/gitpod/androidsdk \
@@ -12,10 +12,10 @@ USER root
 RUN install-packages openjdk-8-jdk -y \
     && update-java-alternatives --set java-1.8.0-openjdk-amd64
 
-# Install Google Chrome
-RUN curl -sSL https://dl.google.com/linux/linux_signing_key.pub | apt-key add - \
-  && echo "deb [arch=amd64] https://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google-chrome.list \
-  && install-packages google-chrome-stable apt-transport-https
+# Install ungoogled_chromium
+RUN curl -sSL https://download.opensuse.org/repositories/home:/ungoogled_chromium/Ubuntu_Focal/Release.key | apt-key add - \
+  && echo 'deb http://download.opensuse.org/repositories/home:/ungoogled_chromium/Ubuntu_Focal/ /' > /etc/apt/sources.list.d/ungoogled_chromium.list \
+  && install-packages ungoogled-chromium
 
 # misc deps
 RUN install-packages \
