@@ -1,7 +1,6 @@
 image:
   file: .gitpod.Dockerfile
 tasks:
-  - before: sudo mount -t tmpfs shm -osize=4096m /dev/shm
   - init: |
       flutter config --enable-web
       flutter config --android-sdk /home/gitpod/androidsdk
