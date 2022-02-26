@@ -1,4 +1,4 @@
-FROM axonasif/workspace-tool-vnc:latest
+FROM axonasif/workspace-vnc:latest
 SHELL ["/bin/bash", "-c"]
 
 ENV ANDROID_HOME=/home/gitpod/androidsdk \
