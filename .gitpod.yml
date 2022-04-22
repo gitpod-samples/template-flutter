@@ -11,7 +11,8 @@ tasks:
       flutter build -v web
       flutter build -v appbundle
       flutter build -v apk
-      
+  - command: gp await-port 8080 1>/dev/null && chromium --start-fullscreen http://localhost:8080
+  - command: gp await-port 6080 1>/dev/null && gp preview "$(gp url 6080)?resize=scale" --external
   - command: |
       # Gitpod is not able to run emulators within a worspace at this stage as
       # Google Kubernetes Engine does not support Nested Virtualization.
@@ -58,10 +59,10 @@ ports:
     onOpen: ignore
     # vnc
   - port: 6080
-    onOpen: open-preview
+    onOpen: ignore
     # flutter
   - port: 8080
-    onOpen: open-preview
+    onOpen: ignore
 
 vscode:
   extensions:
