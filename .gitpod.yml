@@ -25,7 +25,7 @@ tasks:
       # Until this restriction is mitigated you can run native mobile apps in your
       # browser via https://appetize.io/
 
-      if [[ -z "$APPETIZE_API_TOKEN" ]]; then
+      if test -n "$APPETIZE_API_TOKEN"; then
           echo "Appetize API token not set. Run:"
           echo ""
           echo "    gp env APPETIZE_API_TOKEN=your_token"
