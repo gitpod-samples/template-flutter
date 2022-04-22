@@ -3,7 +3,8 @@ SHELL ["/bin/bash", "-c"]
 
 ENV ANDROID_HOME=$HOME/androidsdk \
     FLUTTER_VERSION=2.10.5-stable \
-    QTWEBENGINE_DISABLE_SANDBOX 1 # For Qt WebEngine on docker
+    QTWEBENGINE_DISABLE_SANDBOX 1
+    # For Qt WebEngine on docker
 
 # Install Open JDK
 USER root
