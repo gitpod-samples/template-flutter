@@ -19,8 +19,16 @@ RUN install-packages \
   fonts-noto \
   fonts-noto-cjk
 
-# Insall flutter
+# Make some changes for our vnc client and flutter chrome
+RUN sed -i 's|resize=scale|resize=remote|g' /opt/novnc/index.html \
+    && _gc_path="$(command -v google-chrome)" \
+    && rm "$_gc_path" && printf '%s\n' '#!/usr/bin/env bash' \
+                                        'chromium --start-fullscreen "$@"' > "$_gc_path" \
+    && chmod +x "$_gc_path"
+
 USER gitpod
+
+# Insall flutter
 RUN wget -q "https://storage.googleapis.com/flutter_infra_release/releases/stable/linux/flutter_linux_${FLUTTER_VERSION}.tar.xz" -O - \
     | tar xpJ -C "$HOME"
 # Install android cli tools
@@ -33,7 +41,6 @@ RUN _file_name="commandlinetools-linux-8092744_latest.zip" && wget "https://dl.g
 ENV PATH="$HOME/flutter/bin:$ANDROID_HOME/emulator:$ANDROID_HOME/tools:$ANDROID_HOME/cmdline-tools/latest/bin:$ANDROID_HOME/platform-tools:$PATH" 
 
 # Install Android Image version 31
-USER gitpod
 RUN yes | sdkmanager "platform-tools" "platforms;android-31" \
     && yes | sdkmanager "system-images;android-31;google_apis;x86_64" \
     && echo no | avdmanager create avd -n avd28 -k "system-images;android-31;google_apis;x86_64"
