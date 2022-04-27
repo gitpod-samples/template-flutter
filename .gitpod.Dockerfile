@@ -42,8 +42,7 @@ ENV PATH="$HOME/flutter/bin:$ANDROID_HOME/emulator:$ANDROID_HOME/tools:$ANDROID_
 
 # Install Android Image version 31
 RUN yes | sdkmanager "platform-tools" "platforms;android-31" \
-    && yes | sdkmanager "system-images;android-31;google_apis;x86_64" \
-    && echo no | avdmanager create avd -n avd28 -k "system-images;android-31;google_apis;x86_64"
+    && yes | sdkmanager "system-images;android-31;google_apis;x86_64"
 
 # Cache flutter registry
 RUN flutter precache
