@@ -1,7 +1,8 @@
 image:
   file: .gitpod.Dockerfile
 tasks:
-  - init: |
+  - name: Build for different targets
+    init: |
       flutter config --enable-web
       flutter-config --enable-linux
       flutter config --android-sdk /home/gitpod/androidsdk
@@ -13,7 +14,9 @@ tasks:
       # flutter build -v bundle
       # flutter build -v appbundle
       # flutter build -v apk
-  - command: |
+
+  - name: Appetize info
+    command: |
       # Gitpod is not able to run emulators within a worspace at this stage as
       # Google Kubernetes Engine does not support Nested Virtualization.
       #
