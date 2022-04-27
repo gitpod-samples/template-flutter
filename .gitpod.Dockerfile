@@ -47,3 +47,6 @@ RUN yes | sdkmanager "platform-tools" "platforms;android-31" \
 # Cache flutter registry
 RUN flutter precache
 
+# Temp patch
+RUN sudo install-packages x11-xserver-utils
+
