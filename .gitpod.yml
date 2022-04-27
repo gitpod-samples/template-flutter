@@ -3,14 +3,16 @@ image:
 tasks:
   - init: |
       flutter config --enable-web
+      flutter-config --enable-linux
       flutter config --android-sdk /home/gitpod/androidsdk
       yes | flutter doctor --android-licenses
       flutter doctor
       flutter pub get
-      flutter build -v bundle
       flutter build -v web
-      flutter build -v appbundle
-      flutter build -v apk
+      flutter build -v linux
+      # flutter build -v bundle
+      # flutter build -v appbundle
+      # flutter build -v apk
   - command: |
       # Gitpod is not able to run emulators within a worspace at this stage as
       # Google Kubernetes Engine does not support Nested Virtualization.
