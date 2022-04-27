@@ -62,6 +62,12 @@ ports:
     # flutter
   - port: 8080
     onOpen: ignore
+  - port: 5037
+    onOpen: ignore
+  - port: 9101
+    onOpen: ignore
+  - port: 40000-50000
+    onOpen: ignore
 
 vscode:
   extensions:
