@@ -41,8 +41,7 @@ RUN _file_name="commandlinetools-linux-8092744_latest.zip" && wget "https://dl.g
 ENV PATH="$HOME/flutter/bin:$ANDROID_HOME/emulator:$ANDROID_HOME/tools:$ANDROID_HOME/cmdline-tools/latest/bin:$ANDROID_HOME/platform-tools:$PATH" 
 
 # Install Android Image version 31
-RUN yes | sdkmanager "platform-tools" "platforms;android-31" \
-    && yes | sdkmanager "system-images;android-31;google_apis;x86_64"
+RUN yes | sdkmanager "platform-tools" "platforms;android-31"
 
 # Cache flutter registry
 RUN flutter precache
