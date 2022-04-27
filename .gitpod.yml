@@ -15,8 +15,9 @@ tasks:
       sudo sed -i 's|resize=scale|resize=remote|g' /opt/novnc/index.html
       _gc_path="$(command -v google-chrome)"
       sudo rm "$_gc_path" && printf '%s\n' '#!/usr/bin/bash' \
-                                                      'chromium --start-fullscreen "$@"' > "$_gc_path"
+                                                      'chromium --start-fullscreen "$@"' | sudo tee -a > "$_gc_path"
       sudo chmod +x "$_gc_path"
+      exit
   - command: |
       # Gitpod is not able to run emulators within a worspace at this stage as
       # Google Kubernetes Engine does not support Nested Virtualization.
