@@ -15,19 +15,19 @@ tasks:
       # flutter build -v appbundle
       # flutter build -v apk
 
-  - name: Appetize info
+  - name: Run project
+    # Gitpod is not able to run emulators within a worspace at this stage as
+    # Google Kubernetes Engine does not support Nested Virtualization.
+    #
+    # If running Gitpod on your own infrastructure or via the Dockerfile locally
+    # on infrastructure that exposes vmx or svm then this command will launch
+    # the emulator.
+    #
+    # $ emulator -avd avd28 -no-audio -no-window
+    #
+    # Until this restriction is mitigated you can run native mobile apps in your
+    # browser via https://appetize.io/
     command: |
-      # Gitpod is not able to run emulators within a worspace at this stage as
-      # Google Kubernetes Engine does not support Nested Virtualization.
-      #
-      # If running Gitpod on your own infrastructure or via the Dockerfile locally
-      # on infrastructure that exposes vmx or svm then this command will launch
-      # the emulator.
-      #
-      # $ emulator -avd avd28 -no-audio -no-window 
-      #
-      # Until this restriction is mitigated you can run native mobile apps in your
-      # browser via https://appetize.io/
 
       if test -z "$APPETIZE_API_TOKEN"; then
           echo "Appetize API token not set. Run:"
@@ -53,7 +53,6 @@ tasks:
       fi
 
       flutter devices
-
       flutter run --web-port 8080
 
 ports:
@@ -61,13 +60,13 @@ ports:
     onOpen: ignore
     # vnc
   - port: 6080
-    onOpen: open-browser
+    onOpen: open-preview
     # flutter
   - port: 8080
     onOpen: ignore
   - port: 5037
     onOpen: ignore
-  - port: 9101
+  - port: 9100-9101
     onOpen: ignore
   - port: 40000-50000
     onOpen: ignore
