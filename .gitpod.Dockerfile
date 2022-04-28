@@ -28,7 +28,6 @@ RUN install-packages \
 #     && chmod +x "$_gc_path"
 
 USER gitpod
-
 # Insall flutter
 RUN wget -q "https://storage.googleapis.com/flutter_infra_release/releases/stable/linux/flutter_linux_${FLUTTER_VERSION}.tar.xz" -O - \
     | tar xpJ -C "$HOME"
