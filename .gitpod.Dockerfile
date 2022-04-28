@@ -1,4 +1,5 @@
-FROM gitpod/workspace-full-vnc:2022-04-26-07-40-59
+# Temp
+FROM axonasif/workspace-full-vnc:latest
 SHELL ["/bin/bash", "-c"]
 
 ENV ANDROID_HOME=$HOME/androidsdk \
@@ -45,7 +46,3 @@ RUN yes | sdkmanager "platform-tools" "platforms;android-31"
 
 # Cache flutter registry
 RUN flutter precache
-
-# Temp patch
-RUN sudo install-packages x11-xserver-utils
-
