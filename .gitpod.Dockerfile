@@ -1,11 +1,10 @@
 # Temp
 FROM axonasif/workspace-full-vnc:latest
 SHELL ["/bin/bash", "-c"]
-
 ENV ANDROID_HOME=$HOME/androidsdk \
     FLUTTER_VERSION=2.10.5-stable \
     QTWEBENGINE_DISABLE_SANDBOX=1
-# For Qt WebEngine on docker
+ENV PATH="$HOME/flutter/bin:$ANDROID_HOME/emulator:$ANDROID_HOME/tools:$ANDROID_HOME/cmdline-tools/latest/bin:$ANDROID_HOME/platform-tools:$PATH"
 
 # Install Open JDK for android and other dependencies
 USER root
@@ -16,7 +15,6 @@ RUN install-packages openjdk-8-jdk -y \
         fonts-noto-cjk \
     && update-java-alternatives --set java-1.8.0-openjdk-amd64
 
-
 # Make some changes for our vnc client and flutter chrome
 # RUN sed -i 's|resize=scale|resize=remote|g' /opt/novnc/index.html \
 #     && _gc_path="$(command -v google-chrome)" \
@@ -24,11 +22,8 @@ RUN install-packages openjdk-8-jdk -y \
 #                                         'chromium --start-fullscreen "$@"' > "$_gc_path" \
 #     && chmod +x "$_gc_path"
 
-USER gitpod
-
-ENV PATH="$HOME/flutter/bin:$ANDROID_HOME/emulator:$ANDROID_HOME/tools:$ANDROID_HOME/cmdline-tools/latest/bin:$ANDROID_HOME/platform-tools:$PATH"
-
 # Insall flutter and dependencies
+USER gitpod
 RUN wget -q "https://storage.googleapis.com/flutter_infra_release/releases/stable/linux/flutter_linux_${FLUTTER_VERSION}.tar.xz" -O - \
     | tar xpJ -C "$HOME" \
     && _file_name="commandlinetools-linux-8092744_latest.zip" && wget "https://dl.google.com/android/repository/$_file_name" \
