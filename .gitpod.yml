@@ -3,13 +3,19 @@ image:
 tasks:
   - name: Build for different targets
     init: |
+      rm /workspace/.template_init
       flutter create --project-name gitpod_flutter_quickstart .
       flutter build -v linux
       flutter build -v web
+
+      ### If you want to build for android, consider uncommenting the below lines
       # flutter build -v bundle
       # flutter build -v appbundle
       # flutter build -v apk
-      gp sync-done flutter_build
+
+      ### This line is necessary for the below `- name: Run project` to await before proceeding to `flutter run` when prebuilds are not effective
+      # We could use `gp sync-[done|await] <id>` but that won't work between `init` and `command`
+      touch /workspace/.template_init
 
   - name: Run project
     # Gitpod is not able to run emulators within a worspace at this stage as
@@ -24,17 +30,25 @@ tasks:
     # Until this restriction is mitigated you can run native mobile apps in your
     # browser via https://appetize.io/
     command: |
-      gp sync-await flutter_build
+      until test -e /workspace/.template_init; do
+        sleep 1 && printf 'info[gitpod]: %s\n' "Waiting for the flutter build process to complete"
+      done
       printf 'info[gitpod]: %s\n' "We're only demonstrating the web build for flutter, you can run the linux build too!" \
                                   "The following command can be used for running the linux build: flutter run -d linux"
+
+      flutter devices
+      flutter run --web-port 8080
+  - name: Android Appetize info
+    command: |
+      printf 'info[gitpod]: %s\n' \
+        "If you want to build apk/appbundle for Android then you might consider doing the below" \
+        "Appetize can will help you debug your app inside the browser"
       if test -z "$APPETIZE_API_TOKEN"; then
-          echo "Appetize API token not set. Run:"
-          echo ""
-          echo "    gp env APPETIZE_API_TOKEN=your_token"
-          echo ""
-          echo "and create a new workspace in order to get an app preview."
-          echo ""
-          echo "Request your token here: https://appetize.io/docs#request-api-token if you want to test android builds"
+          printf '%s\n\n' \
+            "Appetize API token not set. Run:" \
+            "    gp env APPETIZE_API_TOKEN=your_token"
+            "and create a new workspace in order to get an app preview."
+            "Request your token here: https://appetize.io/docs#request-api-token if you want to test android builds"
       else
           curl -sS --http1.1 "https://$APPETIZE_API_TOKEN@api.appetize.io/v1/apps/$APPETIZE_PUBLICKEY" \
               -F "file=@/workspace/template-flutter/build/app/outputs/flutter-apk/app.apk" \
@@ -46,12 +60,8 @@ tasks:
           APPETIZE_PUBLICKEY=$(jq -r .publicKey .appetize.json)
           gp env "APPETIZE_PUBLICKEY=$APPETIZE_PUBLICKEY"
           export APPETIZE_PUBLICKEY
-
           gp preview "https://appetize.io/embed/$APPETIZE_PUBLICKEY?device=pixel4&autoplay=true"
       fi
-
-      flutter devices
-      flutter run --web-port 8080
 
 ports:
   - port: 5900
