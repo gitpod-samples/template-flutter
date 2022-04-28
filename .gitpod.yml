@@ -3,7 +3,7 @@ image:
 tasks:
   - name: Build for different targets
     init: |
-      flutter create .
+      flutter create --project-name gitpod_flutter_quickstart .
       flutter build -v linux
       flutter build -v web
       # flutter build -v bundle
