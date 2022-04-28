@@ -9,6 +9,7 @@ tasks:
       # flutter build -v bundle
       # flutter build -v appbundle
       # flutter build -v apk
+      gp sync-done flutter_build
 
   - name: Run project
     # Gitpod is not able to run emulators within a worspace at this stage as
@@ -23,6 +24,7 @@ tasks:
     # Until this restriction is mitigated you can run native mobile apps in your
     # browser via https://appetize.io/
     command: |
+      gp sync-await flutter_build
       printf 'info[gitpod]: %s\n' "We're only demonstrating the web build for flutter, you can run the linux build too!" \
                                   "The following command can be used for running the linux build: flutter run -d linux"
       if test -z "$APPETIZE_API_TOKEN"; then
