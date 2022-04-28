@@ -54,7 +54,7 @@ tasks:
 
   - name: Run project
     command: |
-      if test ! -e /workspace/.template_init; then {
+      clear && if test ! -e /workspace/.template_init; then {
         printf 'info[gitpod]: %s\n' "Waiting for the flutter build process to complete ..."
         until test -e /workspace/.template_init; do
           sleep 0.5
