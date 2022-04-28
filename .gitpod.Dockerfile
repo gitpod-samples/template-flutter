@@ -31,13 +31,13 @@ ENV PATH="$HOME/flutter/bin:$ANDROID_HOME/emulator:$ANDROID_HOME/tools:$ANDROID_
 # Insall flutter and dependencies
 RUN wget -q "https://storage.googleapis.com/flutter_infra_release/releases/stable/linux/flutter_linux_${FLUTTER_VERSION}.tar.xz" -O - \
     | tar xpJ -C "$HOME" \
-    && flutter precache && for _plat in web linux-desktop; do flutter config --enable-${_plat}; done \
-    && flutter config --android-sdk $ANDROID_HOME \
-    && yes | flutter doctor --android-licenses \
-    && flutter doctor \
     && _file_name="commandlinetools-linux-8092744_latest.zip" && wget "https://dl.google.com/android/repository/$_file_name" \
     && unzip "$_file_name" -d $ANDROID_HOME \
     && rm -f "$_file_name" \
     && mkdir -p $ANDROID_HOME/cmdline-tools/latest \
     && mv $ANDROID_HOME/cmdline-tools/{bin,lib} $ANDROID_HOME/cmdline-tools/latest \
-    && yes | sdkmanager "platform-tools" "platforms;android-31"
+    && yes | sdkmanager "platform-tools" "platforms;android-31" \
+    && flutter precache && for _plat in web linux-desktop; do flutter config --enable-${_plat}; done \
+    && flutter config --android-sdk $ANDROID_HOME \
+    && yes | flutter doctor --android-licenses \
+    && flutter doctor
