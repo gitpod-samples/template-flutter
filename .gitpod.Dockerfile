@@ -20,7 +20,7 @@ RUN install-packages openjdk-8-jdk -y \
 #     && _gc_path="$(command -v google-chrome)" \
 #     && rm "$_gc_path" && printf '%s\n' '#!/usr/bin/env bash' \
 #                                         'chromium --start-fullscreen "$@"' > "$_gc_path" \
-#     && chmod +x "$_gc_path"
+#     && chmod +x "$_gc_path" 
 
 # Insall flutter and dependencies
 USER gitpod
