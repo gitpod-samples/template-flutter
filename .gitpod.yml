@@ -39,7 +39,7 @@ tasks:
       fi
   - name: Build for different targets
     init: |
-      rm /workspace/.template_init
+      rm -f /workspace/.template_init
       flutter create --project-name gitpod_flutter_quickstart .
       flutter build -v linux
       flutter build -v web
