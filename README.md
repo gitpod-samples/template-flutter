@@ -1,10 +1,6 @@
 # Flutter app template
 The [Flutter](https://flutter.dev/) template, configured for [Gitpod](https://www.gitpod.io) to give you pre-built, ephemeral development environments in the cloud.
 
-# A Ruby on Rails with Postgres template on Gitpod
-
-This is a [Ruby on Rails with Postgres](https://rubyonrails.org) template configured for ephemeral development environments on [Gitpod](https://www.gitpod.io/).
-
 ## Next Steps
 
 Click the button below to start a new development environment:
