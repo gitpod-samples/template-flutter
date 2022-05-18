@@ -1,5 +1,5 @@
 # Temp
-FROM axonasif/workspace-full-vnc:latest
+FROM gitpod/workspace-full-vnc:2022-05-17-12-26-08
 SHELL ["/bin/bash", "-c"]
 ENV ANDROID_HOME=$HOME/androidsdk \
     FLUTTER_VERSION=2.10.5-stable \
