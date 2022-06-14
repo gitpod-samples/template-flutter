@@ -14,7 +14,7 @@ tasks:
     # Until this restriction is mitigated you can run native mobile apps in your
     # browser via https://appetize.io/
     command: |
-      printf '\e[3J' && clear
+      printf "\033[3J\033c\033[3J"
       printf 'info[gitpod]: %s\n' \
         "If you want to build apk/appbundle for Android then you might consider doing the below" \
         "Appetize can will help you debug your app inside the browser"
@@ -39,8 +39,10 @@ tasks:
       fi
   - name: Build for different targets
     init: |
-      rm -f /workspace/.template_init
-      flutter create --project-name gitpod_flutter_quickstart .
+      if test ! -e "pubspec.yaml"; then {
+        rm -f /workspace/.template_init
+        flutter create --project-name gitpod_flutter_quickstart .
+      } fi
       flutter build -v linux
       flutter build -v web
 
@@ -55,7 +57,7 @@ tasks:
 
   - name: Run project
     command: |
-      printf '\e[3J' && clear && if test ! -e /workspace/.template_init; then {
+      printf "\033[3J\033c\033[3J" && if test ! -e /workspace/.template_init; then {
         printf 'info[gitpod]: %s\n' "Waiting for the flutter build process to complete ..."
         until test -e /workspace/.template_init; do
           sleep 0.5
