@@ -7,12 +7,13 @@ ENV PATH="$HOME/flutter/bin:$ANDROID_HOME/emulator:$ANDROID_HOME/tools:$ANDROID_
 
 # Install Open JDK for android and other dependencies
 USER root
-RUN install-packages openjdk-8-jdk -y \
+RUN apt-get update --allow-unauthenticated --allow-insecure-repositories \
+    && apt-get install openjdk-8-jdk -y \
         libgtk-3-dev \
         libnss3-dev \
         fonts-noto \
         fonts-noto-cjk \
-    && update-java-alternatives --set java-1.8.0-openjdk-amd64
+    && update-java-alternatives --set java-1.8.0-openjdk-amd64 2>/dev/null
 
 # Make some changes for our vnc client and flutter chrome
 # RUN sed -i 's|resize=scale|resize=remote|g' /opt/novnc/index.html \
@@ -21,7 +22,7 @@ RUN install-packages openjdk-8-jdk -y \
 #                                         'chromium --start-fullscreen "$@"' > "$_gc_path" \
 #     && chmod +x "$_gc_path" 
 
-# Insall flutter and dependencies
+# Install flutter and dependencies
 USER gitpod
 RUN wget -q "https://storage.googleapis.com/flutter_infra_release/releases/stable/linux/flutter_linux_${FLUTTER_VERSION}.tar.xz" -O - \
     | tar xpJ -C "$HOME" \
